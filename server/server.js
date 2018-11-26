@@ -23,12 +23,10 @@ io.on('connection', (socket) => {
         if (!isRealString(params.name) || !isRealString(params.room)) {
             return callback('Name and room name are required.')
         }
-
-        /*
-        if () {
-            เช็คชื่อซ้ำ
+        if (users.getUserList(params.room).includes(params.name)) {
+            return callback('This name has already taken');
         }
-        */
+
         socket.join(params.room);
         users.removeUser(socket.id);
         users.addUser(socket.id, params.name, params.room);
